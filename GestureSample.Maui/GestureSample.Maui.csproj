@@ -50,7 +50,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="CommunityToolkit.Maui" Version="2.0.0" />
 	  <PackageReference Include="MR.Gestures" Version="3.0.0" />
+	  <PackageReference Include="MvvmCross" Version="9.0.10" />
 	</ItemGroup>
+
+	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionGestureSampleMauiHideInfoBar="True" /></VisualStudio></ProjectExtensions>
 
 </Project>

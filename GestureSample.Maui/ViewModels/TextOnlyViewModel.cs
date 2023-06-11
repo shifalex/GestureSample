@@ -18,7 +18,14 @@ namespace GestureSample.ViewModels
 			set { SetProperty(ref text, value); }
 		}
 
-		public ICommand DownCommand { get; protected set; }
+        private string text2 = "Initialized aalek";
+        public string Text2
+        {
+            get { return text2; }
+            set { SetProperty(ref text2, value); }
+        }
+
+        public ICommand DownCommand { get; protected set; }
 		public ICommand UpCommand { get; protected set; }
 		public ICommand TappingCommand { get; protected set; }
 		public ICommand TappedCommand { get; protected set; }
@@ -74,5 +81,21 @@ namespace GestureSample.ViewModels
 
 			Debug.WriteLine(text);
 		}
-	}
+
+        public virtual void AddText2(string text)
+        {
+            var sb = new StringBuilder(text2).Append("\n").Append(Text2);
+            Text2 = sb.ToString(0, Math.Min(sb.Length, 2000));
+
+            Debug.WriteLine(text2);
+        }
+
+        public virtual void AddText2(string format, params object[] args)
+        {
+            var sb = new StringBuilder().AppendFormat(format, args).Append("\n").Append(Text2);
+            Text2 = sb.ToString(0, Math.Min(sb.Length, 2000));
+
+            //Debug.WriteLine(text2);
+        }
+    }
 }
