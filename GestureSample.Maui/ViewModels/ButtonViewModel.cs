@@ -14,20 +14,23 @@ namespace GestureSample.ViewModels
 		private void OnClicked(object obj)
 		{
 			AddText("{0} was clicked.", obj);
+			
 		}
 
 		protected override void OnDown(MR.Gestures.DownUpEventArgs e)
 		{
 			base.OnDown(e);
-
-			((VisualElement)e.Sender).BackgroundColor = Colors.Yellow;
-		}
+			if(((VisualElement)e.Sender).BackgroundColor != Colors.Yellow)
+				((VisualElement)e.Sender).BackgroundColor = Colors.Yellow;
+			else
+                ((VisualElement)e.Sender).BackgroundColor = Color.FromArgb("808080");
+        }
 
 		protected override void OnUp(MR.Gestures.DownUpEventArgs e)
 		{
 			base.OnUp(e);
 
-			((VisualElement)e.Sender).BackgroundColor = Color.FromArgb("808080");
+			//((VisualElement)e.Sender).BackgroundColor = Color.FromArgb("808080");
 		}
 	}
 }
