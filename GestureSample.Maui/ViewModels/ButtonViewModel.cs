@@ -7,7 +7,7 @@ namespace GestureSample.ViewModels
 {
     public partial class ButtonViewModel : CustomEventArgsViewModel
     {
-        private readonly bool ASSERT = false;
+        //private readonly bool ASSERT = false;
         private readonly int NAN = 0;
 
         private int _addent1 = 0;
@@ -211,7 +211,7 @@ namespace GestureSample.ViewModels
         int _maxAddent = 5;
         int _minSum = 1;
         int _maxSum = 10;
-        int _decompositionLevel = -1;
+        //int _decompositionLevel = -1;
         int _fMustFindOneTwoBoth = 2;
 
         bool _fMustFindTheSum = true;
@@ -374,37 +374,90 @@ namespace GestureSample.ViewModels
         }
 
         private List<VisualElement> buttons = new();
+        private int _seconds_pressed = 0;
+        public string SecondsToEnd
+        {
+            get
+            {
+                return string.Format("{0}",5 - _seconds_pressed);
+            }
+        }
+        private bool _waiting_check = false;
+        private bool _isTimerWorking = false;
         protected override void OnDown(MR.Gestures.DownUpEventArgs e)
 		{
+            
             if (!IsEnabledTotal) return;
             //AddText2("{0} was clicked.", ((Button)e.Sender).CommandParameter);
             base.OnDown(e);
             buttons.Add((VisualElement)e.Sender);
-            if (((VisualElement)e.Sender).BackgroundColor != Colors.Yellow)
+            //if (((VisualElement)e.Sender).BackgroundColor != Colors.Yellow)
             
                 ((VisualElement)e.Sender).BackgroundColor = Colors.Yellow;
             
+            //else
+            //    ((VisualElement)e.Sender).BackgroundColor = Color.FromArgb("808080");
+            if (Convert.ToInt32(((Button)e.Sender).CommandParameter) > 4)
+                /*if (((VisualElement)e.Sender).BackgroundColor != Colors.Yellow)
+                    _addent2--;
+                else*/
+                    _addent2++;
             else
-                ((VisualElement)e.Sender).BackgroundColor = Color.FromArgb("808080");
+                /*if (((VisualElement)e.Sender).BackgroundColor != Colors.Yellow)
+                _addent1--;
+            else*/
+                _addent1++;
+            //if(_addent1==0 && _addent2==0) { _isTimerWorking = false; _waiting_check = false; _seconds_pressed = 0; return; }
+            _waiting_check = true;
+            _seconds_pressed = 0;
+            if(!_isTimerWorking)
+            { 
+                IDispatcherTimer timer = Application.Current.Dispatcher.CreateTimer();
+                _isTimerWorking = true;
+                timer.Interval = TimeSpan.FromSeconds(1);
+                timer.Tick += (s,e) => {
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                       
+                        _seconds_pressed++;
+                        if (_seconds_pressed == 5 && _waiting_check)
+                        {
+                            _isTimerWorking = false; _waiting_check = false; _seconds_pressed = 0;
+                            check();
+                        }
+                        NotifyPropertyChanged(nameof(SecondsToEnd));
+                    });
+                };
+            }
+            NotifyPropertyChanged(nameof(SAddent1)); NotifyPropertyChanged(nameof(SAddent2)); NotifyPropertyChanged(nameof(SecondsToEnd));
         }
 
 		protected override void OnUp(MR.Gestures.DownUpEventArgs e)
         {
+
+            
             if (!IsEnabledTotal) return;
             base.OnUp(e);
-            if (Convert.ToInt32(((Button)e.Sender).CommandParameter) > 4)
-                if (((VisualElement)e.Sender).BackgroundColor != Colors.Yellow)
-                    _addent2--;
-                else
-                    _addent2++;
-            else
-                if (((VisualElement)e.Sender).BackgroundColor != Colors.Yellow)
-                _addent1--;
-            else
-                _addent1++;
-            //AddText2("{0} {1}", _addent1, _addent2);
+            _seconds_pressed = 0;
+            //if (((VisualElement)e.Sender).BackgroundColor != Colors.Yellow)
 
-            NotifyPropertyChanged(nameof(SAddent1)); NotifyPropertyChanged(nameof(SAddent2));
+            //((VisualElement)e.Sender).BackgroundColor = Colors.Yellow;
+
+            //else
+                ((VisualElement)e.Sender).BackgroundColor = Color.FromArgb("808080");
+            if (Convert.ToInt32(((Button)e.Sender).CommandParameter) > 4)
+                //if (((VisualElement)e.Sender).BackgroundColor != Colors.Yellow)
+                    _addent2--;
+                //else
+                //_addent2++;
+            else
+                //if (((VisualElement)e.Sender).BackgroundColor != Colors.Yellow)
+                _addent1--;
+            //else
+            //_addent1++;
+            //AddText2("{0} {1}", _addent1, _addent2);
+            if (_addent1 == 0 && _addent2 == 0) { _isTimerWorking = false; _waiting_check = false; _seconds_pressed = 0; return; }
+            NotifyPropertyChanged(nameof(SAddent1)); NotifyPropertyChanged(nameof(SAddent2)); NotifyPropertyChanged(nameof(SecondsToEnd));
             //((VisualElement)e.Sender).BackgroundColor = Color.FromArgb("808080");
         }
     }

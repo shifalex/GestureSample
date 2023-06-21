@@ -380,8 +380,9 @@
 			/>
 
 
-       <!--<ScrollView Grid.Row="1" Grid.ColumnSpan="3">
-			<Label Text="{Binding Text}" />
-		</ScrollView>-->
+       <ScrollView Grid.Row="1" Grid.ColumnSpan="3">
+			<!--<Label Text="{Binding Text}" />-->
+            <Label Text="{Binding SecondsToEnd}" />
+        </ScrollView>
 	</Grid>
 </ContentPage>
