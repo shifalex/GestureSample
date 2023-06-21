@@ -357,8 +357,10 @@ namespace GestureSample.ViewModels
             //_addent1 = 0;
             //_addent2 = 0;
             //Color = 
-            Color = Color.FromArgb("808080");
+            //Color = Color.FromArgb("808080");
             STest = "";
+            foreach(VisualElement ve in buttons) ve.BackgroundColor= Color.FromArgb("808080");
+            buttons.Clear();
             //Button[] buttons = this.Controls.OfType<Button>().ToArray();
 
 
@@ -370,11 +372,14 @@ namespace GestureSample.ViewModels
 
 
         }
+
+        private List<VisualElement> buttons = new();
         protected override void OnDown(MR.Gestures.DownUpEventArgs e)
 		{
             if (!IsEnabledTotal) return;
-            AddText2("{0} was clicked.", ((Button)e.Sender).CommandParameter);
+            //AddText2("{0} was clicked.", ((Button)e.Sender).CommandParameter);
             base.OnDown(e);
+            buttons.Add((VisualElement)e.Sender);
             if (((VisualElement)e.Sender).BackgroundColor != Colors.Yellow)
             
                 ((VisualElement)e.Sender).BackgroundColor = Colors.Yellow;
@@ -397,7 +402,7 @@ namespace GestureSample.ViewModels
                 _addent1--;
             else
                 _addent1++;
-            AddText2("{0} {1}", _addent1, _addent2);
+            //AddText2("{0} {1}", _addent1, _addent2);
 
             NotifyPropertyChanged(nameof(SAddent1)); NotifyPropertyChanged(nameof(SAddent2));
             //((VisualElement)e.Sender).BackgroundColor = Color.FromArgb("808080");
