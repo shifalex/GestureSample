@@ -50,6 +50,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Remove="ViewModels\ImageButtonViewModel.cs" />
+	  <Compile Remove="Views\ImageButtonXaml.xaml.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Remove="Views\ImageButtonXaml.xaml" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Maui" Version="2.0.0" />
 	  <PackageReference Include="MR.Gestures" Version="3.0.0" />
 	  <PackageReference Include="MvvmCross" Version="9.0.10" />

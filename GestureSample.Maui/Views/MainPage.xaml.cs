@@ -8,11 +8,11 @@ namespace GestureSample.Views
 		private PageConfig[] AllPages = new PageConfig[]
 		{
 			// main page
-			new PageConfig(null, "ContentPage", () => new ContentPageXaml { BindingContext = new ViewModels.TransformImageViewModel() }),
-			new PageConfig(null, "Layouts", null),
+			//new PageConfig(null, "ContentPage", () => new ContentPageXaml { BindingContext = new ViewModels.TransformImageViewModel() }),
+			//new PageConfig(null, "Layouts", null),
 			new PageConfig(null, "Views", null),
-			new PageConfig(null, "Cells", null),
-			new PageConfig(null, "Tests", null),
+			//new PageConfig(null, "Cells", null),
+			//new PageConfig(null, "Tests", null),
 
 			// Layouts
 			new PageConfig("Layouts", "AbsoluteLayout", () => new AbsoluteLayoutXaml { BindingContext = new ViewModels.MarksViewModel() }),
@@ -25,11 +25,12 @@ namespace GestureSample.Views
 			new PageConfig("Layouts", "TabbedPage", () => new TabbedPageXaml { BindingContext = new ViewModels.CustomEventArgsViewModel() }),
 
 			// Views
-			new PageConfig("Views", "ActivityIndicator", () => new ActivityIndicatorXaml { BindingContext = new ViewModels.CustomEventArgsViewModel() }),
-			new PageConfig("Views", "BoxView", () => new BoxViewMain { BindingContext = new ViewModels.TextOnlyViewModel() }),
-			new PageConfig("Views", "Button", () => new ButtonXaml { BindingContext = new ViewModels.ButtonViewModel() }),
+			//new PageConfig("Views", "ActivityIndicator", () => new ActivityIndicatorXaml { BindingContext = new ViewModels.CustomEventArgsViewModel() }),
+			//new PageConfig("Views", "Piano Async", () => new BoxViewMain { BindingContext = new ViewModels.TextOnlyViewModel() }),
+            new PageConfig("Views", "Piano Async", () => new ButtonXaml { BindingContext = new ViewModels.ButtonViewModel(false) }),
+			new PageConfig("Views", "Piano Sync", () => new ButtonXaml { BindingContext = new ViewModels.ButtonViewModel(true) }),
 			//new PageConfig("Views", "CollectionView", () => new CollectionViewMain { BindingContext = new ViewModels.ListOfObjectsViewModel() }),
-			new PageConfig("Views", "DatePicker", () => new DatePickerXaml { BindingContext = new ViewModels.ThreeDatesViewModel() }),
+			/*new PageConfig("Views", "DatePicker", () => new DatePickerXaml { BindingContext = new ViewModels.ThreeDatesViewModel() }),
 			new PageConfig("Views", "Editor", () => new EditorXaml { BindingContext = new ViewModels.ThreeStringsViewModel() }),
 			new PageConfig("Views", "Entry", () => new EntryXaml { BindingContext = new ViewModels.ThreeStringsViewModel() }),
 			new PageConfig("Views", "Image", () => new ImageXaml { BindingContext = new ViewModels.TransformImageViewModel() }),
@@ -44,7 +45,7 @@ namespace GestureSample.Views
 			new PageConfig("Views", "Switch", () => new SwitchXaml { BindingContext = new ViewModels.ThreeBooleansViewModel() }),
 			new PageConfig("Views", "TableView", () => new TableViewXaml { BindingContext = new ViewModels.AllCellsViewModel() }),
 			new PageConfig("Views", "TimePicker", () => new TimePickerXaml { BindingContext = new ViewModels.ThreeTimesViewModel() }),
-			new PageConfig("Views", "WebView", () => new WebViewXaml { BindingContext = new ViewModels.CustomEventArgsViewModel() }),
+			new PageConfig("Views", "WebView", () => new WebViewXaml { BindingContext = new ViewModels.CustomEventArgsViewModel() }),*/
 
 			// Cells
 			new PageConfig("Cells", "TextCell", () => new TextCellMain { BindingContext = new ViewModels.ListOfStringsViewModel() }),
@@ -61,7 +62,7 @@ namespace GestureSample.Views
 			new PageConfig("Tests", "InputTransparent", () => new InputTransparent { BindingContext = new ViewModels.TextOnlyViewModel() }),
 			new PageConfig("Tests", "Simple LongPress", () => new SimpleLongPress()),
 			new PageConfig("Tests", "Page and ListView", () => new PageAndListView { BindingContext = new ViewModels.ListOfStringsViewModel() }),
-			new PageConfig("Tests", "Custom Button", () => new CustomButtonPage() { BindingContext = new ViewModels.ButtonViewModel() }),
+			//new PageConfig("Tests", "Custom Button", () => new CustomButtonPage() { BindingContext = new ViewModels.ButtonViewModel() }),
 			new PageConfig("Tests", "Nested Controls", () => new NestedControls()),
 			new PageConfig("Tests", "BottomTabbedPage", () => new BottomTabbedPageXaml { BindingContext = new ViewModels.CustomEventArgsViewModel() }),
 			new PageConfig("Tests", "Delete Bound Items", () => new DeleteBoundItems { BindingContext = new ViewModels.Tests.DeleteBoundItemsViewModel() }),
