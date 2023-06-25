@@ -205,6 +205,31 @@ namespace GestureSample.ViewModels
             }
             CheckCommand = new Command(() => Check());
             NextCommand = new Command(() => GenerateExercise());
+
+            
+                timer = Application.Current.Dispatcher.CreateTimer();
+                timer.Interval = TimeSpan.FromSeconds(1);
+                timer.Tick += (s, e) => {
+                    MainThread.BeginInvokeOnMainThread(async () =>
+                    {
+
+                        _seconds_pressed++;
+                        if (_seconds_pressed >= 3 && _waiting_check)
+                        {
+                            _isTimerWorking = false; _waiting_check = false; _seconds_pressed = 0; 
+                            Check();
+                            timer.Stop();
+                            
+                            if (!IsEnabledTotal)
+                            {   await Task.Delay(3000);
+                                GenerateExercise();
+                            }
+                           
+                        }
+                        NotifyPropertyChanged(nameof(SecondsToEnd));
+                    });
+                };
+            
         }
 
     public void Check() { _isFirstGuess = false; NotifyPropertyChanged(nameof(isNotFirstGuess)); NotifyPropertyChanged(nameof(TrueStatement)); }
@@ -386,6 +411,7 @@ namespace GestureSample.ViewModels
         }
         private bool _waiting_check = false;
         private bool _isTimerWorking = false;
+        private IDispatcherTimer timer;
         protected override void OnDown(MR.Gestures.DownUpEventArgs e)
 		{
             
@@ -400,29 +426,15 @@ namespace GestureSample.ViewModels
                     _addent2++;
                 else
                     _addent1++;
-                if(_addent1==0 && _addent2==0) { _isTimerWorking = false; _waiting_check = false; _seconds_pressed = 0; return; }
+                //if(_addent1==0 && _addent2==0) { _isTimerWorking = false; _waiting_check = false; _seconds_pressed = 0; return; }
                 _waiting_check = true;
                 _seconds_pressed = 0;
-                if(!_isTimerWorking)
-                { 
+                if (!_isTimerWorking)
+                {
+                    timer.Start();
                     _isTimerWorking = true;
-                    /*IDispatcherTimer timer = Application.Current.Dispatcher.CreateTimer();
-                    timer.Interval = TimeSpan.FromSeconds(1);
-                    timer.Tick += (s,e) => {
-                        MainThread.BeginInvokeOnMainThread(() =>
-                        {
-                       
-                            _seconds_pressed++;
-                            if (_seconds_pressed == 5 && _waiting_check)
-                            {
-                                _isTimerWorking = false; _waiting_check = false; _seconds_pressed = 0;
-                                check();
-                            }
-                            NotifyPropertyChanged(nameof(SecondsToEnd));
-                        });
-                    };*/
                 }
-            }
+                }
             else
             {
                 if (((VisualElement)e.Sender).BackgroundColor != Colors.Yellow)
@@ -451,7 +463,7 @@ namespace GestureSample.ViewModels
                     _addent2--;
                 else
                     _addent1--;
-                if (_addent1 == 0 && _addent2 == 0) { _isTimerWorking = false; _waiting_check = false; _seconds_pressed = 0; }
+                if (_addent1 == 0 && _addent2 == 0) { _isTimerWorking = false; _waiting_check = false; _seconds_pressed = 0; timer.Stop(); }
 
             }
             else
@@ -468,6 +480,8 @@ namespace GestureSample.ViewModels
                 else
                     _addent1++;
             }
+            if (_addent1 < 0) _addent1 = 0;
+            if (_addent2 < 0) _addent2 = 0;
             //AddText2("{0} {1}", _addent1, _addent2);
             NotifyPropertyChanged(nameof(SAddent1)); NotifyPropertyChanged(nameof(SAddent2)); NotifyPropertyChanged(nameof(SecondsToEnd));
         }
