@@ -9,13 +9,14 @@
 				Title="Button Sample"
 	>
 
-    <Grid RowDefinitions="2*,1*,2*" ColumnDefinitions="*,*,*,*,*,5,*,*,*,*,*" RowSpacing="5" ColumnSpacing="5">
+    <Grid RowDefinitions="3*,2*" ColumnDefinitions="*,*,*,*,*,5,*,*,*,*,*" RowSpacing="5" ColumnSpacing="5" BackgroundColor="Black">
 
-        <ScrollView Grid.Row="0" Grid.ColumnSpan="11" VerticalOptions="Start">
+        <ScrollView Grid.Row="0" Grid.ColumnSpan="11" VerticalOptions="Start" BackgroundColor="AntiqueWhite">
                 <VerticalStackLayout
             Spacing="5"
             Padding="20,15"
-            VerticalOptions="Start">
+            VerticalOptions="Start"
+                    HeightRequest="400">
 
                     <!--<Image
                 Source="dotnet_bot.png"
@@ -26,10 +27,10 @@
                     <Label
                 Text="{Binding TrueStatement}"
                 FontSize="18"
-                     WidthRequest="250"/>
-
-                <Entry Keyboard="Numeric"  Text="{Binding SSum}"   IsReadOnly="True"
+                     WidthRequest="250" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                <Entry Keyboard="Numeric"  Text="{Binding SSum}"   IsReadOnly="{Binding IsReadOnly}"
                    toolkit:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference txtAddent1}" x:Name="txtSum"
+
 
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="32"
@@ -51,7 +52,7 @@
             HorizontalOptions="Center"
             >
 
-                    <Entry Keyboard="Numeric"  Text="{Binding SAddent1}" 
+                    <Entry Keyboard="Numeric"  Text="{Binding SAddent1}" IsReadOnly="{Binding IsReadOnly}" 
                     toolkit:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference txtAddent2}" x:Name="txtAddent1"
                     FontSize="18"
                     BackgroundColor="Lavender"
@@ -65,7 +66,7 @@
                             </Entry.Behaviors>
                         </Entry>
 
-                    <Entry Keyboard="Numeric"    Text="{Binding SAddent2}"
+                    <Entry Keyboard="Numeric"    Text="{Binding SAddent2}" IsReadOnly="{Binding IsReadOnly}" IsVisible="{Binding HasTwoAddents}"
                 toolkit:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference txtSum}" x:Name="txtAddent2"
 
                        FontSize="18"
@@ -86,28 +87,41 @@
                                           
                                           Command="{Binding CheckCommand}"
                 IsEnabled="{Binding IsEnabledTotal}"
-                                          HorizontalOptions="Center"  />
-                   <Button
+                                          HorizontalOptions="Center" IsVisible="{Binding IsNotSync}"  />
+
+                   <!-- <Label Text="{Binding SecondsToEnd}" IsVisible="{Binding ShowSecondsToEnd}" FontSize="18" 
+                HorizontalOptions="Center"/>-->
+                    <Button
                 Text="Next"
                 Command="{Binding NextCommand}"
-                        IsEnabled="{Binding isNotFirstGuess}"
-                HorizontalOptions="Center" />
+                        IsEnabled="{Binding IsNotFirstGuess}"
+                HorizontalOptions="Center" IsVisible="{Binding IsNotSync}"  />
 
                 </HorizontalStackLayout>
 
                 <HorizontalStackLayout  HorizontalOptions="Center">
                     <Label Text="{Binding History}" HorizontalOptions="Center"/>
                 </HorizontalStackLayout>
+                <Label Text="{Binding DecompositionLevel,StringFormat='Level: {0}'}"  IsVisible="{Binding IsDecomposition}"/>
+                <Picker SelectedItem="{Binding DecompositionLevel}"  IsVisible="{Binding IsDecomposition}" WidthRequest="20">
+                    <Picker.Items>
+                        <x:String>1</x:String>
+                        <x:String>2</x:String>
+                        <x:String>3</x:String>
+                    </Picker.Items></Picker>
+                <Label Text="{Binding StreakCorrect,StringFormat='Correct in this Level:{0} (reach 20 to level up)'}" VerticalOptions="Center" IsVisible="{Binding IsDecomposition}"/>
+                <Label Text="{Binding StreakWrong,StringFormat='Wrong in a row: {0} (reach 5 and you level down) '}" VerticalOptions="Center" IsVisible="{Binding IsDecomposition}"/>
+
             </VerticalStackLayout>
             </ScrollView>
 
 
             <mr:Button Text="Button 1"
-				Grid.Row="2" Grid.Column="0"
+				Grid.Row="1" Grid.Column="0"
 				BackgroundColor="{Binding Color,Mode=OneWay,UpdateSourceEventName=Color}"
 				Command="{Binding ClickedCommand}"
                 IsEnabled="{Binding IsEnabledTotal}"
-
+				IsVisible="{Binding IsReadOnly}"
 				
 				DownCommand="{Binding DownCommand}"
 				CommandParameter="0"
@@ -132,9 +146,10 @@
 
 		
 		<mr:Button Text="Button 2"
-				Grid.Row="2" Grid.Column="1"
+				Grid.Row="1" Grid.Column="1"
 				BackgroundColor="{Binding Color, UpdateSourceEventName=SetProperty, Mode=OneWay}"
                    IsEnabled="{Binding IsEnabledTotal}"
+				IsVisible="{Binding IsReadOnly}"
 
 				Command="{Binding ClickedCommand}"
 				
@@ -162,9 +177,10 @@
 			/>
 
 		<mr:Button Text="Button 3"
-				Grid.Row="2" Grid.Column="2"
+				Grid.Row="1" Grid.Column="2"
 				BackgroundColor="{Binding Color}"
                    IsEnabled="{Binding IsEnabledTotal}"
+				IsVisible="{Binding IsReadOnly}"
 
 				Command="{Binding ClickedCommand}"
 				CommandParameter="2"
@@ -189,9 +205,10 @@
 				ScrollWheelChangedCommand="{Binding ScrollWheelChangedCommand}"
 			/>
         <mr:Button Text="Button 4"
-				Grid.Row="2" Grid.Column="3"
-				BackgroundColor="#808080"
+				Grid.Row="1" Grid.Column="3"
+				BackgroundColor="White"
                 IsEnabled="{Binding IsEnabledTotal}"
+				IsVisible="{Binding IsReadOnly}"
 
 				Command="{Binding ClickedCommand}"
 				CommandParameter="3"
@@ -217,9 +234,10 @@
 			/>
 
         <mr:Button Text="Button 5"
-				Grid.Row="2" Grid.Column="4"
-				BackgroundColor="#808080"
+				Grid.Row="1" Grid.Column="4"
+				BackgroundColor="White"
                 IsEnabled="{Binding IsEnabledTotal}"
+				IsVisible="{Binding IsReadOnly}"
 
 				Command="{Binding ClickedCommand}"
 				CommandParameter="4"
@@ -244,9 +262,10 @@
 				ScrollWheelChangedCommand="{Binding ScrollWheelChangedCommand}"
 			/>
         <mr:Button Text="Button 6"
-				Grid.Row="2" Grid.Column="6"
-				BackgroundColor="#808080"
+				Grid.Row="1" Grid.Column="6"
+				BackgroundColor="White"
                 IsEnabled="{Binding IsEnabledTotal}"
+				IsVisible="{Binding IsReadOnly}"
 
 				Command="{Binding ClickedCommand}"
 				CommandParameter="5"
@@ -271,9 +290,10 @@
 				ScrollWheelChangedCommand="{Binding ScrollWheelChangedCommand}"
 			/>
         <mr:Button Text="Button 7"
-				Grid.Row="2" Grid.Column="7"
-				BackgroundColor="#808080"
+				Grid.Row="1" Grid.Column="7"
+				BackgroundColor="White"
                 IsEnabled="{Binding IsEnabledTotal}"
+				IsVisible="{Binding IsReadOnly}"
 
 				Command="{Binding ClickedCommand}"
 				CommandParameter="6"
@@ -298,9 +318,10 @@
 				ScrollWheelChangedCommand="{Binding ScrollWheelChangedCommand}"
 			/>
         <mr:Button Text="Button 8"
-				Grid.Row="2" Grid.Column="8"
-				BackgroundColor="#808080"
+				Grid.Row="1" Grid.Column="8"
+				BackgroundColor="White"
                 IsEnabled="{Binding IsEnabledTotal}"
+				IsVisible="{Binding IsReadOnly}"
 
 				Command="{Binding ClickedCommand}"
 				CommandParameter="7"
@@ -325,9 +346,10 @@
 				ScrollWheelChangedCommand="{Binding ScrollWheelChangedCommand}"
 			/>
         <mr:Button Text="Button 9"
-				Grid.Row="2" Grid.Column="9"
-				BackgroundColor="#808080"
+				Grid.Row="1" Grid.Column="9"
+				BackgroundColor="White"
                 IsEnabled="{Binding IsEnabledTotal}"
+				IsVisible="{Binding IsReadOnly}"
 
 				Command="{Binding ClickedCommand}"
 				CommandParameter="8"
@@ -352,9 +374,10 @@
 				ScrollWheelChangedCommand="{Binding ScrollWheelChangedCommand}"
 			/>
         <mr:Button Text="Button 10"
-				Grid.Row="2" Grid.Column="10"
-				BackgroundColor="#808080"
+				Grid.Row="1" Grid.Column="10"
+				BackgroundColor="White"
                 IsEnabled="{Binding IsEnabledTotal}"
+				IsVisible="{Binding IsReadOnly}"
 
 				Command="{Binding ClickedCommand}"
 				CommandParameter="9"
@@ -380,9 +403,8 @@
 			/>
 
 
-       <ScrollView Grid.Row="1" Grid.ColumnSpan="3">
-			<!--<Label Text="{Binding Text}" />-->
-            <Label Text="{Binding SecondsToEnd}" />
-        </ScrollView>
+       <!--<ScrollView Grid.Row="1" Grid.ColumnSpan="3">
+			<Label Text="{Binding Text}" />
+        </ScrollView>-->
 	</Grid>
 </ContentPage>
