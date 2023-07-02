@@ -6,7 +6,7 @@
              
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
 
-				Title="Button Sample"
+				Title="Pianomatica"
 	>
 
     <Grid RowDefinitions="3*,2*" ColumnDefinitions="*,*,*,*,*,5,*,*,*,*,*" RowSpacing="5" ColumnSpacing="5" BackgroundColor="Black">
@@ -103,7 +103,7 @@
                     <Label Text="{Binding History}" HorizontalOptions="Center"/>
                 </HorizontalStackLayout>
                 <Label Text="{Binding DecompositionLevel,StringFormat='Level: {0}'}"  IsVisible="{Binding IsDecomposition}"/>
-                <Picker SelectedItem="{Binding DecompositionLevel}"  IsVisible="{Binding IsDecomposition}" WidthRequest="20">
+                <Picker WidthRequest="100" HorizontalOptions="Start" SelectedItem="{Binding DecompositionLevel}"  IsVisible="{Binding IsDecomposition}" Title="{Binding DecompositionLevel, StringFormat='Level: {0}'}" >
                     <Picker.Items>
                         <x:String>1</x:String>
                         <x:String>2</x:String>

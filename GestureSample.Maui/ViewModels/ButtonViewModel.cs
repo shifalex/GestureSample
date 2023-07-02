@@ -1,4 +1,5 @@
 ﻿
+//using Foundation;
 using GestureSample.Maui.ViewModels;
 using System.Collections;
 using System.Windows.Input;
@@ -123,10 +124,21 @@ namespace GestureSample.ViewModels
 
                 if (_seconds_pressed > 0 && _seconds_pressed < 3)
                     return SecondsToEnd;
-                if (_isFirstGuess) { 
-                    return "| |"; 
+                if (_isFirstGuess) {
+                    return "| |";
                 }
-
+                else if (_mult)
+                {
+                    if(_addent1 > _maxAddent || _addent1 < _minAddent || _addent2 > _maxAddent || _addent2 < _minAddent || _sum > 100 || _sum < _minAddent) return "wrong input!";
+                    else if (_sum == _addent1 * _addent2)
+                    {
+                        return "CORRECT :D";
+                    }
+                    else
+                    {
+                        return "WRONG :(";
+                    }
+                }
                 else if (!_isPiano && (_addent1 > _maxAddent || _addent1 < _minAddent || _addent2 > _maxAddent || _addent2 < _minAddent || _sum > _maxSum || _sum < _minAddent)) return "wrong input!";
                 else if (_sum == _addent1 + _addent2)
                 {
@@ -186,7 +198,7 @@ namespace GestureSample.ViewModels
                     }
                     //if (ASSERT) SentrySdk.CaptureMessage("Incorrect");
                     //SentrySdk.CaptureMessage(string.Format("Incorrect: {0}={1}+{2}", _sum, _addent1, _addent2));
-                    
+
                     return "WRONG :(";
                 }
             }
@@ -202,6 +214,8 @@ namespace GestureSample.ViewModels
         readonly MR.Gestures.Button[] _keys;
         readonly private bool _isSync;
         readonly private bool _isPiano;
+        readonly private bool _isBlind;
+        readonly private bool _mult = false;
         public bool IsReadOnly { get { return _isPiano; } }
         public bool IsNotSync { get { return !_isSync; } }
 
@@ -211,7 +225,7 @@ namespace GestureSample.ViewModels
 
 
 
-        public ButtonViewModel(bool isPiano,bool isSync,bool onlyOneAddent, bool requireNewCombinations) {
+        public ButtonViewModel(bool isPiano,bool isSync,bool onlyOneAddent, bool requireNewCombinations, bool isBlind=false) {
             
             CheckCommand = new Command(() => Check());
             NextCommand = new Command(() => GenerateExercise());
@@ -225,10 +239,21 @@ namespace GestureSample.ViewModels
             this._isSync = isSync;
             this._onlyOneAddent = onlyOneAddent;
             this._requireNewAddents = requireNewCombinations;
+            this._isBlind = isBlind;
             if (isPiano == false && isSync == true && onlyOneAddent == false && requireNewCombinations == true)
             {
                 IsDecomposition = true;
                 _isSync = false;
+                GenerateExercise();
+            }
+            if (isPiano == false && isSync == true && onlyOneAddent == true && requireNewCombinations == true)
+            {
+                _mult = true;
+                _isSync = false;
+                _onlyOneAddent = false;
+                _requireNewAddents = false;
+                _fMustFindOneTwoBoth = 1;
+                _fMustFindTheSum = false;
                 GenerateExercise();
             }
             _keys = new MR.Gestures.Button[10];
@@ -376,6 +401,14 @@ namespace GestureSample.ViewModels
             factors[0] = r.Next(_minAddent, Math.Min(_maxAddent, factors[2]) + 1);
             factors[1] = factors[2] - factors[0];
 
+            if(_mult)
+            {
+                factors[0] = r.Next(_minAddent, Math.Min(_maxAddent, factors[2]) + 1);
+                factors[1] = r.Next(_minAddent, Math.Min(_maxAddent, factors[2]) + 1);
+                factors[2] = factors[0] * factors[1];
+
+            }
+
             //if (ASSERT)
             //    SentrySdk.CaptureMessage("First factors success");
 
@@ -429,6 +462,7 @@ namespace GestureSample.ViewModels
                 {
                     if (_impossibleSums.Count >= (_maxSum - 2 * _minAddent) - 1)
                     {
+                        Application.Current.MainPage.DisplayAlert("Win", "You Won!!", "OK");
                         _impossibleSums.Clear(); _allHistory.Clear(); _freeCombination = !_freeCombination;
                     }
                     factors[2] = r.Next(_minSum, _maxSum + 1);

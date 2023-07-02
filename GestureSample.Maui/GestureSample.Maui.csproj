@@ -60,8 +60,10 @@
 
 	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Maui" Version="2.0.0" />
+	  <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0-preview2.23159.1" />
 	  <PackageReference Include="MR.Gestures" Version="3.0.0" />
 	  <PackageReference Include="MvvmCross" Version="9.0.10" />
+	  <PackageReference Include="sqlite-net-pcl" Version="1.9.141-beta" />
 	</ItemGroup>
 
 	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionGestureSampleMauiHideInfoBar="True" /></VisualStudio></ProjectExtensions>
