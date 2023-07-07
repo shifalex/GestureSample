@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GestureSample.Maui.ViewModels
+namespace GestureSample.Maui.Models
 {
     internal class PPWObject
     {

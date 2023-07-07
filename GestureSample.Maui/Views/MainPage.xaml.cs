@@ -1,4 +1,5 @@
 ﻿using GestureSample.Maui;
+using GestureSample.Maui.Views;
 using GestureSample.Views.Tests;
 
 namespace GestureSample.Views
@@ -10,8 +11,10 @@ namespace GestureSample.Views
 			// main page
 			//new PageConfig(null, "ContentPage", () => new ContentPageXaml { BindingContext = new ViewModels.TransformImageViewModel() }),
 			//new PageConfig(null, "Layouts", null),
-			new PageConfig(null, "Piano", null),
+			new PageConfig(null, "Keyboard", null),
             new PageConfig(null, "Number", null),
+
+            //new PageConfig(null, "Show Data",  () => new ShowDataXaml { BindingContext = new ViewModels.MarksViewModel() }),
 			//new PageConfig(null, "Cells", null),
 			//new PageConfig(null, "Tests", null),
 
@@ -28,12 +31,18 @@ namespace GestureSample.Views
 			// Views
 			//new PageConfig("Views", "ActivityIndicator", () => new ActivityIndicatorXaml { BindingContext = new ViewModels.CustomEventArgsViewModel() }),
 			//new PageConfig("Views", "Piano Async", () => new BoxViewMain { BindingContext = new ViewModels.TextOnlyViewModel() }),
-            new PageConfig("Piano", "Async one number", () => new ButtonXaml { BindingContext = new ViewModels.ButtonViewModel(true,false,true,false) }),
-            new PageConfig("Piano", "Sync one number", () => new ButtonXaml { BindingContext = new ViewModels.ButtonViewModel(true,true,true,false) }),
-            new PageConfig("Piano", "Async decomposition not required new combinations", () => new ButtonXaml { BindingContext = new ViewModels.ButtonViewModel(true,false,false, false) }),
-			new PageConfig("Piano", "Sync decomposition not required new combinations", () => new ButtonXaml { BindingContext = new ViewModels.ButtonViewModel(true,true,false,false) }),
-            new PageConfig("Piano", "Async decomposition required new combinations", () => new ButtonXaml { BindingContext = new ViewModels.ButtonViewModel(true,false,false,true) }),
-            new PageConfig("Piano", "Sync decomposition required new combinations", () => new ButtonXaml { BindingContext = new ViewModels.ButtonViewModel(true,true,false,true) }),
+            new PageConfig("Keyboard", "Async one number", () => new ButtonXaml { BindingContext = new ViewModels.ButtonViewModel(true,false,true,false) }),
+            new PageConfig("Keyboard", "Sync one number", () => new ButtonXaml { BindingContext = new ViewModels.ButtonViewModel(true,true,true,false) }),
+            new PageConfig("Keyboard", "Sync one number Blind", () => new ButtonXaml { BindingContext = new ViewModels.ButtonViewModel(true,true,true,false,false) }),
+            new PageConfig("Keyboard", "Async decomposition not required new combinations", () => new ButtonXaml { BindingContext = new ViewModels.ButtonViewModel(true,false,false, false) }),
+			new PageConfig("Keyboard", "Sync decomposition not required new combinations", () => new ButtonXaml { BindingContext = new ViewModels.ButtonViewModel(true,true,false,false) }),
+            new PageConfig("Keyboard", "Sync decomposition not required new combinations Blind", () => new ButtonXaml { BindingContext = new ViewModels.ButtonViewModel(true,true,false,false, false) }),
+            new PageConfig("Keyboard", "Async decomposition required new combinations", () => new ButtonXaml { BindingContext = new ViewModels.ButtonViewModel(true,false,false,true) }),
+            new PageConfig("Keyboard", "Sync decomposition required new combinations", () => new ButtonXaml { BindingContext = new ViewModels.ButtonViewModel(true,true,false,true) }),
+            new PageConfig("Keyboard", "Sync decomposition required new combinations Blind", () => new ButtonXaml { BindingContext = new ViewModels.ButtonViewModel(true,true,false,true, false) }),
+			
+            //new PageConfig("Piano", "Sync one number", () => new ButtonXaml { BindingContext = new ViewModels.ButtonViewModel(true,true,false,false) }),
+
             //new PageConfig("Views", "Piano Sync decomposition one by one", () => new ButtonXaml { BindingContext = new ViewModels.ButtonViewModel(true) }),
             //new PageConfig("Views", "Piano Sync decomposition one by one 2 layers", () => new ButtonXaml { BindingContext = new ViewModels.ButtonViewModel(true) }),
 			//new PageConfig("Views", "CollectionView", () => new CollectionViewMain { BindingContext = new ViewModels.ListOfObjectsViewModel() }),

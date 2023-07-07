@@ -28,8 +28,8 @@
                 Text="{Binding TrueStatement}"
                 FontSize="18"
                      WidthRequest="250" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
-                <Entry Keyboard="Numeric"  Text="{Binding SSum}"   IsReadOnly="{Binding IsReadOnly}"
-                   toolkit:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference txtAddent1}" x:Name="txtSum"
+                <Entry Keyboard="Numeric"  Text="{Binding SSum}"   IsReadOnly="{Binding IsReadOnly}" IsEnabled="{Binding SumEnabled}"
+                    x:Name="txtSum"
 
 
                 SemanticProperties.HeadingLevel="Level1"
@@ -37,13 +37,7 @@
                 HorizontalOptions="Center"
                 BackgroundColor="Yellow"
                 WidthRequest="240">
-                        <Entry.Behaviors>
-                            <toolkit:NumericValidationBehavior 
-                InvalidStyle="{StaticResource InvalidEntryStyle}"
-                ValidStyle="{StaticResource ValidEntryStyle}"
-                Flags="ValidateOnValueChanged"
-                MaximumDecimalPlaces="0" />
-                        </Entry.Behaviors>
+                        
                     </Entry>
 
                     <HorizontalStackLayout
@@ -52,34 +46,20 @@
             HorizontalOptions="Center"
             >
 
-                    <Entry Keyboard="Numeric"  Text="{Binding SAddent1}" IsReadOnly="{Binding IsReadOnly}" 
-                    toolkit:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference txtAddent2}" x:Name="txtAddent1"
+                    <Entry Keyboard="Numeric"  Text="{Binding SAddent1}" IsReadOnly="{Binding IsReadOnly}" IsVisible="{Binding IsNotBlind}" IsEnabled="{Binding Addent1Enabled}"
+                    x:Name="txtAddent1"
                     FontSize="18"
-                    BackgroundColor="Lavender"
+                    BackgroundColor="Yellow"
                     WidthRequest="120" >
-                            <Entry.Behaviors>
-                                <toolkit:NumericValidationBehavior 
-                            InvalidStyle="{StaticResource InvalidEntryStyle}"
-                            ValidStyle="{StaticResource ValidEntryStyle}"
-                            Flags="ValidateOnValueChanged"
-                            MaximumDecimalPlaces="0" />
-                            </Entry.Behaviors>
-                        </Entry>
+                    </Entry>
 
-                    <Entry Keyboard="Numeric"    Text="{Binding SAddent2}" IsReadOnly="{Binding IsReadOnly}" IsVisible="{Binding HasTwoAddents}"
+                    <Entry Keyboard="Numeric"    Text="{Binding SAddent2}" IsReadOnly="{Binding IsReadOnly}" IsVisible="{Binding HasTwoAddents}" IsEnabled="{Binding Addent2Enabled}"
                 toolkit:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference txtSum}" x:Name="txtAddent2"
 
                        FontSize="18"
                     BackgroundColor="Lavender"
                        WidthRequest="120">
-                            <Entry.Behaviors>
-                                <toolkit:NumericValidationBehavior 
-                InvalidStyle="{StaticResource InvalidEntryStyle}"
-                ValidStyle="{StaticResource ValidEntryStyle}"
-                Flags="ValidateOnValueChanged"
-                MaximumDecimalPlaces="0" />
-                            </Entry.Behaviors>
-                        </Entry>
+                    </Entry>
                     </HorizontalStackLayout>
                 <HorizontalStackLayout HorizontalOptions="Center" Spacing="20" Padding="20">
                    <Button                x:Name="CheckBtn"                

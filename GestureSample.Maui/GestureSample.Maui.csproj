@@ -50,19 +50,32 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Remove="ViewModels\ButtonViewModel2.cs" />
 	  <Compile Remove="ViewModels\ImageButtonViewModel.cs" />
 	  <Compile Remove="Views\ImageButtonXaml.xaml.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <MauiXaml Remove="Views\ImageButtonXaml.xaml" />
+	  <MauiXaml Remove="Views\ShowDataXaml.xaml" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Views\ShowDataXaml.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Maui" Version="2.0.0" />
+	  <PackageReference Include="MetroLog.Maui" Version="2.1.0" />
 	  <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0-preview2.23159.1" />
+	  <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0-preview.5.23280.8" />
 	  <PackageReference Include="MR.Gestures" Version="3.0.0" />
 	  <PackageReference Include="MvvmCross" Version="9.0.10" />
+	  <PackageReference Include="Sentry" Version="3.33.1" />
+	  <PackageReference Include="Sentry.Extensions.Logging" Version="3.33.1" />
+	  <PackageReference Include="Sentry.Maui" Version="3.33.1" />
 	  <PackageReference Include="sqlite-net-pcl" Version="1.9.141-beta" />
 	</ItemGroup>
 
