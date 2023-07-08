@@ -187,7 +187,7 @@ namespace GestureSample.ViewModels
                         }
                     }
                     //if (ASSERT) SentrySdk.CaptureMessage("Correct");
-                    Sentry.SentrySdk.CaptureMessage(string.Format("  Correct: {0}={1}+{2}", _sum, _addent1, _addent2));
+                    //Sentry.SentrySdk.CaptureMessage(string.Format("  Correct: {0}={1}+{2}", _sum, _addent1, _addent2));
 
                     IsEnabledTotal = false;
                     NotifyPropertyChanged(nameof(History));
@@ -245,7 +245,7 @@ namespace GestureSample.ViewModels
 
         public ButtonViewModel()
         {
-            SentrySdk.CaptureMessage("page build started");
+            //SentrySdk.CaptureMessage("page build started");
             CheckCommand = new Command(() => Check());
             NextCommand = new Command(() => GenerateExercise());
 
@@ -263,14 +263,14 @@ namespace GestureSample.ViewModels
             _keys = new MR.Gestures.Button[10];
 
             
-            SentrySdk.CaptureMessage("page build ended");
+            //SentrySdk.CaptureMessage("page build ended");
 
 
         }
 
 
         public ButtonViewModel(bool isPiano,bool isSync,bool onlyOneAddent, bool requireNewCombinations, bool isNotBlind=true) {
-            SentrySdk.CaptureMessage("page build started");
+           // SentrySdk.CaptureMessage("page build started");
             CheckCommand = new Command(() => Check());
             NextCommand = new Command(() => GenerateExercise());
             
@@ -327,7 +327,7 @@ namespace GestureSample.ViewModels
                         NotifyPropertyChanged(nameof(TrueStatement));
                     });
                 };
-            SentrySdk.CaptureMessage("page build ended");
+           // SentrySdk.CaptureMessage("page build ended");
 
 
         }

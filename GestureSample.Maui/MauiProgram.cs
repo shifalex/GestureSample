@@ -12,7 +12,7 @@ public static class MauiProgram
 		builder
 			.UseMauiApp<App>()
             .UseMauiCommunityToolkit()
-            .UseSentry(options =>
+         /*   .UseSentry(options =>
         {
             // The DSN is the only required setting.
             options.Dsn = "https://5da960cf63a94e41825ca37c8cf77012@o4505471079481344.ingest.sentry.io/4505471167954944";
@@ -28,7 +28,7 @@ public static class MauiProgram
             options.TracesSampleRate = 1.0;
 
             // Other Sentry options can be set here.
-        })
+        })*/
             
 			.ConfigureFonts(fonts =>
 			{

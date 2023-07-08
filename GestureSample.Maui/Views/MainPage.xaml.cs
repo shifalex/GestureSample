@@ -1,10 +1,9 @@
 ﻿using GestureSample.Maui;
-using GestureSample.Maui.Views;
 using GestureSample.Views.Tests;
 
 namespace GestureSample.Views
 {
-	public partial class MainPage
+    public partial class MainPage
 	{
 		private PageConfig[] AllPages = new PageConfig[]
 		{
@@ -14,7 +13,7 @@ namespace GestureSample.Views
 			new PageConfig(null, "Keyboard", null),
             new PageConfig(null, "Number", null),
 
-            //new PageConfig(null, "Show Data",  () => new ShowDataXaml { BindingContext = new ViewModels.MarksViewModel() }),
+            new PageConfig(null, "Show Data",  () => new ShowDataXaml { BindingContext = new ViewModels.MarksViewModel() }),
 			//new PageConfig(null, "Cells", null),
 			//new PageConfig(null, "Tests", null),
 

@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using GestureSample.Maui;
 
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-
-namespace GestureSample.Maui.Views
+namespace GestureSample.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ShowDataXaml : ContentView
-    {
-        public ShowDataXaml()
-        {
-            InitializeComponent();
+	public partial class ShowDataXaml
+	{
+		public ShowDataXaml()
+		{
+			InitializeComponent();
+            StateList.ItemsSource = App.CurrentDB.GetStates();
+
         }
-    }
+	}
 }

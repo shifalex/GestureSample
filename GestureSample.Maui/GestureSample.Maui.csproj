@@ -57,13 +57,6 @@
 
 	<ItemGroup>
 	  <MauiXaml Remove="Views\ImageButtonXaml.xaml" />
-	  <MauiXaml Remove="Views\ShowDataXaml.xaml" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <EmbeddedResource Include="Views\ShowDataXaml.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -77,6 +70,12 @@
 	  <PackageReference Include="Sentry.Extensions.Logging" Version="3.33.1" />
 	  <PackageReference Include="Sentry.Maui" Version="3.33.1" />
 	  <PackageReference Include="sqlite-net-pcl" Version="1.9.141-beta" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\ShowDataXaml.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionGestureSampleMauiHideInfoBar="True" /></VisualStudio></ProjectExtensions>
