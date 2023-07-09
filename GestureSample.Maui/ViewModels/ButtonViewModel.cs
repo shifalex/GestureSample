@@ -2,7 +2,7 @@
 //using Foundation;
 using GestureSample.Maui;
 using GestureSample.Maui.Models;
-using Sentry;
+//using Sentry;
 using System.Collections;
 using System.Windows.Input;
 
@@ -19,6 +19,8 @@ namespace GestureSample.ViewModels
 
         private int _sum = 5;
 
+        private string _gameType = "";
+
         public string SAddent1
         {
             get
@@ -29,11 +31,11 @@ namespace GestureSample.ViewModels
                 return _addent1.ToString();
             }
             set
-            {
+            {   
                 if (_onlyOneAddent) return;
                 int _addent22;
                 try { _addent22 = Int32.Parse(value); } catch { _addent22 = NAN; }
-                SetProperty(ref _addent1, _addent22); SaveState();
+                SetProperty(ref _addent1, _addent22); 
                 //OnPropertyChanged(nameof(Addent1)); OnPropertyChanged(nameof(TrueStatement));
             }
         }
@@ -49,7 +51,7 @@ namespace GestureSample.ViewModels
             {
                 int _addent22;
                 try { _addent22 = Int32.Parse(value); } catch { _addent22 = NAN; }
-                SetProperty(ref _addent2, _addent22); SaveState();
+                SetProperty(ref _addent2, _addent22); 
                 //OnPropertyChanged(nameof(Addent2)); OnPropertyChanged(nameof(TrueStatement));
             }
         }
@@ -58,14 +60,14 @@ namespace GestureSample.ViewModels
             get
             {
                 if (_sum == NAN && (!_isPiano)) return "";
-                if (_sum == NAN) return "0";
-                return _sum.ToString();
+                if (_sum == NAN) return "0";             
+                return _sum.ToString();                        
             }
             set
             {
                 int _sum2;
                 try { _sum2 = Int32.Parse(value); } catch { _sum2 = NAN; }
-                SetProperty(ref _sum, _sum2); SaveState();
+                SetProperty(ref _sum, _sum2);                            
                 //OnPropertyChanged(nameof(Sum)); OnPropertyChanged(nameof(TrueStatement));
             }
         }
@@ -109,14 +111,36 @@ namespace GestureSample.ViewModels
 
         private void SaveState()
         {
+             bool[] keysPressed= new bool[10];
+            for(int i=0; i<10;i++) keysPressed[i]=false;
+            if(_isPiano)
+            {
+                foreach (Button b in buttons)
+                {
+                    if (b.BackgroundColor == Colors.Yellow)
+                        keysPressed[Convert.ToInt32( b.CommandParameter)] =true;
+                }
+            }
+           
             App.CurrentDB.Add(new State
             {
                 UserId = 1,
                 TimeStamp = DateTime.Now,
-                TypeName = "Game",//TODO: change to the game Type using ENum
+                TypeName = _gameType,
                 Addent1 = _addent1,
                 Addent2 = _addent2,
-                Sum = _sum //TODO:add button click
+                Sum = _sum, //TODO:make more elegant
+                B1 = keysPressed[0],
+                B2 = keysPressed[1],
+                B3 = keysPressed[2],
+                B4 = keysPressed[3],
+                B5 = keysPressed[4],
+                B6 = keysPressed[5],
+                B7 = keysPressed[6],
+                B8 = keysPressed[7],
+                B9 = keysPressed[8],
+                B10 = keysPressed[9]
+
             }) ; 
         }
 
@@ -262,7 +286,8 @@ namespace GestureSample.ViewModels
             
             _keys = new MR.Gestures.Button[10];
 
-            
+            SaveState();
+
             //SentrySdk.CaptureMessage("page build ended");
 
 
@@ -273,7 +298,7 @@ namespace GestureSample.ViewModels
            // SentrySdk.CaptureMessage("page build started");
             CheckCommand = new Command(() => Check());
             NextCommand = new Command(() => GenerateExercise());
-            
+            _gameType = string.Format("{0} {1} {2} {3} {4}", isPiano ? "Keyboard" : "number", isSync ? "Sync" : "Äsync", isNotBlind ? "SeeAll" : "Blind", onlyOneAddent ? "Combination" : "Solution", requireNewCombinations ? "New" : "Öld");
             this._isPiano = isPiano;
             if (!isPiano) NAN = -1111;
             _addent1 = NAN;
@@ -289,6 +314,7 @@ namespace GestureSample.ViewModels
                 IsDecomposition = true;
                 _isSync = false;
                 GenerateExercise();
+                return;
             }
             if (isPiano == false && isSync == true && onlyOneAddent == true && requireNewCombinations == true)
             {
@@ -300,7 +326,10 @@ namespace GestureSample.ViewModels
                 _fMustFindTheSum = false;
                 _maxAddent = 10;
                 GenerateExercise();
+                return;
             }
+
+            SaveState();
             _keys = new MR.Gestures.Button[10];
             
                 timer = Application.Current.Dispatcher.CreateTimer();
@@ -332,7 +361,7 @@ namespace GestureSample.ViewModels
 
         }
 
-        public void Check() { _isFirstGuess = false; NotifyPropertyChanged(nameof(IsNotFirstGuess)); NotifyPropertyChanged(nameof(TrueStatement)); }
+        public void Check() { _isFirstGuess = false; NotifyPropertyChanged(nameof(IsNotFirstGuess)); NotifyPropertyChanged(nameof(TrueStatement)); SaveState(); }
 
         int _minAddent = 0;
         int _maxAddent = 5;
@@ -516,8 +545,8 @@ namespace GestureSample.ViewModels
                     factors[0] = GenerateNewAddent(factors[2]);
                     if (_freeCombination) factors[0] = NAN;
                 }
-                
-                
+
+
             }
 
 
@@ -550,11 +579,13 @@ namespace GestureSample.ViewModels
             //Color = 
             //Color = Color.FromArgb("FFFFFF");
             STest = "";
-            foreach(VisualElement ve in buttons) ve.BackgroundColor= Color.FromArgb("FFFFFF");
+            foreach(Button b in buttons) b.BackgroundColor= Color.FromArgb("FFFFFF");
             buttons.Clear();
+
             //Button[] buttons = this.Controls.OfType<Button>().ToArray();
 
 
+            SaveState();
             //SentrySdk.CaptureMessage(string.Format("Question:{0}={1}+{2}", SSum, SAddent1, SAddent2));
 
             //if (ASSERT)
@@ -564,7 +595,7 @@ namespace GestureSample.ViewModels
 
         }
 
-        private List<VisualElement> buttons = new();
+        private List<Button> buttons = new();
         private int _seconds_pressed = 0;
         public string SecondsToEnd
         {
@@ -585,7 +616,7 @@ namespace GestureSample.ViewModels
             if (!IsEnabledTotal) return;
             //AddText2("{0} was clicked.", ((Button)e.Sender).CommandParameter);
             base.OnDown(e);
-            buttons.Add((VisualElement)e.Sender);
+            if(!buttons.Contains((Button)e.Sender)) buttons.Add((Button)e.Sender);
             if (_isSync)
             {
                 ((VisualElement)e.Sender).BackgroundColor = Colors.Yellow;
@@ -614,6 +645,8 @@ namespace GestureSample.ViewModels
             }
             
             NotifyPropertyChanged(nameof(SAddent1)); NotifyPropertyChanged(nameof(SAddent2)); NotifyPropertyChanged(nameof(SecondsToEnd));
+
+            SaveState();
         }
 
 		protected override void OnUp(MR.Gestures.DownUpEventArgs e)
@@ -650,6 +683,7 @@ namespace GestureSample.ViewModels
             if (_addent1 < 0) _addent1 = 0;
             if (_addent2 < 0) _addent2 = 0;
             //AddText2("{0} {1}", _addent1, _addent2);
+            SaveState();
             NotifyPropertyChanged(nameof(SAddent1)); NotifyPropertyChanged(nameof(SAddent2)); 
         }
     }

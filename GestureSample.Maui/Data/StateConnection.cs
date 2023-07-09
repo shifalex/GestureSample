@@ -14,19 +14,20 @@ namespace GestureSample.Maui.Data
 
         public void Init()
         {
+            if (conn is not null) return;
             conn= new SQLiteConnection(_dbPath);
             conn.CreateTable<State>();
         }
 
         public List<State> GetStates()
         {
-            conn = new SQLiteConnection(_dbPath);
+            Init();
             return conn.Table<State>().ToList();
         }
 
         public void Add(State s)
         {
-            conn = new SQLiteConnection(_dbPath);
+            Init();
             conn.Insert(s);
         }
     }

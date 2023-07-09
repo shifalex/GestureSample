@@ -12,10 +12,10 @@ public partial class App : Application
 	public App(StateConnection currentDB)
 	{
 		InitializeComponent();
+		CurrentDB = currentDB;
 
 		var mainPage = new MainPage("Control Categories", null);
 		MainPage = MainNavigation = new NavigationPage(mainPage);
 
-		CurrentDB = currentDB;
 	}
 }

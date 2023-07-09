@@ -41,6 +41,7 @@ public static class MauiProgram
         string dbpath = Path.Combine(FileSystem.AppDataDirectory,"States.db");
         builder.Services.AddSingleton(s=> ActivatorUtilities.CreateInstance<StateConnection>(s,dbpath));
 
+
 		return builder.Build();
 	}
 }

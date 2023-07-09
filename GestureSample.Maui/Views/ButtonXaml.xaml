@@ -30,8 +30,6 @@
                      WidthRequest="250" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
                 <Entry Keyboard="Numeric"  Text="{Binding SSum}"   IsReadOnly="{Binding IsReadOnly}" IsEnabled="{Binding SumEnabled}"
                     x:Name="txtSum"
-
-
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="32"
                 HorizontalOptions="Center"
@@ -49,7 +47,7 @@
                     <Entry Keyboard="Numeric"  Text="{Binding SAddent1}" IsReadOnly="{Binding IsReadOnly}" IsVisible="{Binding IsNotBlind}" IsEnabled="{Binding Addent1Enabled}"
                     x:Name="txtAddent1"
                     FontSize="18"
-                    BackgroundColor="Yellow"
+                    BackgroundColor="White"
                     WidthRequest="120" >
                     </Entry>
 
@@ -57,7 +55,7 @@
                 toolkit:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference txtSum}" x:Name="txtAddent2"
 
                        FontSize="18"
-                    BackgroundColor="Lavender"
+                    BackgroundColor="White"
                        WidthRequest="120">
                     </Entry>
                     </HorizontalStackLayout>
