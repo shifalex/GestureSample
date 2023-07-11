@@ -9,14 +9,41 @@
 				Title="Pianomatica"
 	>
 
-    <Grid RowDefinitions="3*,2*" ColumnDefinitions="*,*,*,*,*,5,*,*,*,*,*" RowSpacing="5" ColumnSpacing="5" BackgroundColor="Black">
+    <Grid  ColumnDefinitions="*,*,*,*,*,5,*,*,*,*,*" RowSpacing="5" ColumnSpacing="5" BackgroundColor="{Binding PianoBG}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        
+        <HorizontalStackLayout Grid.Row="1" Grid.ColumnSpan="11" 
+            Spacing="5"
+            Padding="0"
+            HorizontalOptions="Center"
+                               IsVisible="{Binding IsReadOnly}"
+            >
+            <Entry Keyboard="Numeric"  Text="{Binding SAddent1}" IsReadOnly="True" IsVisible="{Binding IsNotBlind}" IsEnabled="{Binding Addent1Enabled}"
+                    
+                    FontSize="18"
+                    BackgroundColor="White"
+                   HorizontalTextAlignment="Center"
+                    WidthRequest="50" >
+            </Entry>
+            <Label WidthRequest="50" IsVisible="{Binding HasTwoAddents}"/>
+            <Entry Keyboard="Numeric"    Text="{Binding SAddent2}" IsReadOnly="true" IsVisible="{Binding HasTwoAddents}" IsEnabled="{Binding Addent2Enabled}"
+                toolkit:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference txtSum}" 
 
-        <ScrollView Grid.Row="0" Grid.ColumnSpan="11" VerticalOptions="Start" BackgroundColor="AntiqueWhite">
+                   HorizontalTextAlignment="Center"
+                       FontSize="18"
+                    BackgroundColor="White"
+                       WidthRequest="50">
+            </Entry>
+        </HorizontalStackLayout>
+        <ScrollView Grid.Row="0" Grid.ColumnSpan="11" VerticalOptions="FillAndExpand" BackgroundColor="AntiqueWhite">
                 <VerticalStackLayout
             Spacing="5"
             Padding="20,15"
-            VerticalOptions="Start"
-                    HeightRequest="400">
+            VerticalOptions="Start">
 
                     <!--<Image
                 Source="dotnet_bot.png"
@@ -28,20 +55,22 @@
                 Text="{Binding TrueStatement}"
                 FontSize="18"
                      WidthRequest="250" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
-                <Entry Keyboard="Numeric"  Text="{Binding SSum}"   IsReadOnly="{Binding IsReadOnly}" IsEnabled="{Binding SumEnabled}"
+                <Entry Keyboard="Numeric"  Text="{Binding SSum}"   IsReadOnly="{Binding IsReadOnly}" 
                     x:Name="txtSum"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="32"
                 HorizontalOptions="Center"
                 BackgroundColor="Yellow"
-                WidthRequest="240">
+                WidthRequest="240"
+                       IsEnabled="{Binding SumEnabled}"
+                       >
                         
                     </Entry>
 
                     <HorizontalStackLayout
             Spacing="5"
             Padding="0"
-            HorizontalOptions="Center"
+            HorizontalOptions="Center"  IsVisible="{Binding IsNotReadOnly}"
             >
 
                     <Entry Keyboard="Numeric"  Text="{Binding SAddent1}" IsReadOnly="{Binding IsReadOnly}" IsVisible="{Binding IsNotBlind}" IsEnabled="{Binding Addent1Enabled}"
@@ -59,6 +88,10 @@
                        WidthRequest="120">
                     </Entry>
                     </HorizontalStackLayout>
+
+                <HorizontalStackLayout HorizontalOptions="Center" IsVisible="{Binding ZeroToFive}">
+                    <Label Text="Use ONLY numbers from 0(INCLUDING) to 5"/>
+                </HorizontalStackLayout>
                 <HorizontalStackLayout HorizontalOptions="Center" Spacing="20" Padding="20">
                    <Button                x:Name="CheckBtn"                
                                           Text="Check"      
@@ -95,7 +128,7 @@
 
 
             <mr:Button Text="Button 1"
-				Grid.Row="1" Grid.Column="0"
+				Grid.Row="2" Grid.Column="0"
 				BackgroundColor="{Binding Color,Mode=OneWay,UpdateSourceEventName=Color}"
 				Command="{Binding ClickedCommand}"
                 IsEnabled="{Binding IsEnabledTotal}"
@@ -124,7 +157,7 @@
 
 		
 		<mr:Button Text="Button 2"
-				Grid.Row="1" Grid.Column="1"
+				Grid.Row="2" Grid.Column="1"
 				BackgroundColor="{Binding Color, UpdateSourceEventName=SetProperty, Mode=OneWay}"
                    IsEnabled="{Binding IsEnabledTotal}"
 				IsVisible="{Binding IsReadOnly}"
@@ -155,7 +188,7 @@
 			/>
 
 		<mr:Button Text="Button 3"
-				Grid.Row="1" Grid.Column="2"
+				Grid.Row="2" Grid.Column="2"
 				BackgroundColor="{Binding Color}"
                    IsEnabled="{Binding IsEnabledTotal}"
 				IsVisible="{Binding IsReadOnly}"
@@ -183,7 +216,7 @@
 				ScrollWheelChangedCommand="{Binding ScrollWheelChangedCommand}"
 			/>
         <mr:Button Text="Button 4"
-				Grid.Row="1" Grid.Column="3"
+				Grid.Row="2" Grid.Column="3"
 				BackgroundColor="White"
                 IsEnabled="{Binding IsEnabledTotal}"
 				IsVisible="{Binding IsReadOnly}"
@@ -212,7 +245,7 @@
 			/>
 
         <mr:Button Text="Button 5"
-				Grid.Row="1" Grid.Column="4"
+				Grid.Row="2" Grid.Column="4"
 				BackgroundColor="White"
                 IsEnabled="{Binding IsEnabledTotal}"
 				IsVisible="{Binding IsReadOnly}"
@@ -240,7 +273,7 @@
 				ScrollWheelChangedCommand="{Binding ScrollWheelChangedCommand}"
 			/>
         <mr:Button Text="Button 6"
-				Grid.Row="1" Grid.Column="6"
+				Grid.Row="2" Grid.Column="6"
 				BackgroundColor="White"
                 IsEnabled="{Binding IsEnabledTotal}"
 				IsVisible="{Binding IsReadOnly}"
@@ -268,7 +301,7 @@
 				ScrollWheelChangedCommand="{Binding ScrollWheelChangedCommand}"
 			/>
         <mr:Button Text="Button 7"
-				Grid.Row="1" Grid.Column="7"
+				Grid.Row="2" Grid.Column="7"
 				BackgroundColor="White"
                 IsEnabled="{Binding IsEnabledTotal}"
 				IsVisible="{Binding IsReadOnly}"
@@ -296,7 +329,7 @@
 				ScrollWheelChangedCommand="{Binding ScrollWheelChangedCommand}"
 			/>
         <mr:Button Text="Button 8"
-				Grid.Row="1" Grid.Column="8"
+				Grid.Row="2" Grid.Column="8"
 				BackgroundColor="White"
                 IsEnabled="{Binding IsEnabledTotal}"
 				IsVisible="{Binding IsReadOnly}"
@@ -324,7 +357,7 @@
 				ScrollWheelChangedCommand="{Binding ScrollWheelChangedCommand}"
 			/>
         <mr:Button Text="Button 9"
-				Grid.Row="1" Grid.Column="9"
+				Grid.Row="2" Grid.Column="9"
 				BackgroundColor="White"
                 IsEnabled="{Binding IsEnabledTotal}"
 				IsVisible="{Binding IsReadOnly}"
@@ -352,7 +385,7 @@
 				ScrollWheelChangedCommand="{Binding ScrollWheelChangedCommand}"
 			/>
         <mr:Button Text="Button 10"
-				Grid.Row="1" Grid.Column="10"
+				Grid.Row="2" Grid.Column="10"
 				BackgroundColor="White"
                 IsEnabled="{Binding IsEnabledTotal}"
 				IsVisible="{Binding IsReadOnly}"

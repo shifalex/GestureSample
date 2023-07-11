@@ -256,6 +256,12 @@ namespace GestureSample.ViewModels
         readonly private bool _isNotBlind;
         readonly private bool _mult = false;
         public bool IsReadOnly { get { return _isPiano; } }
+        public bool IsNotReadOnly { get { return !_isPiano; } }
+        //public int PianoRowHeight { get { return 0; } }// _isPiano ? "2*" : "0"; } }
+
+        public Color PianoBG { get { return _isPiano ? Colors.Black: Colors.AntiqueWhite; } }
+        private bool _zeroToFive;
+        public bool ZeroToFive { get { return _zeroToFive; } }
         public bool IsNotSync { get { return !_isSync; } }
         public bool IsNotBlind { get { return _isNotBlind; } }
         public bool ShowSecondsToEnd { get { return (_seconds_pressed>0 && _seconds_pressed <3); } }
@@ -298,7 +304,8 @@ namespace GestureSample.ViewModels
            // SentrySdk.CaptureMessage("page build started");
             CheckCommand = new Command(() => Check());
             NextCommand = new Command(() => GenerateExercise());
-            _gameType = string.Format("{0} {1} {2} {3} {4}", isPiano ? "Keyboard" : "number", isSync ? "Sync" : "Äsync", isNotBlind ? "SeeAll" : "Blind", onlyOneAddent ? "Combination" : "Solution", requireNewCombinations ? "New" : "Öld");
+            _zeroToFive= !isPiano && !isSync && !onlyOneAddent;
+            _gameType = string.Format("{0} {1} {2} {3} {4}", isPiano ? "Keyboard" : "number", isSync ? "Sync" : "Async", isNotBlind ? "SeeAll" : "Blind", onlyOneAddent ? "Combination" : "Solution", requireNewCombinations ? "New" : "Old");
             this._isPiano = isPiano;
             if (!isPiano) NAN = -1111;
             _addent1 = NAN;
