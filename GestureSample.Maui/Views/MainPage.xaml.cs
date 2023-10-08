@@ -8,14 +8,16 @@ namespace GestureSample.Views
 		private PageConfig[] AllPages = new PageConfig[]
 		{
 			// main page
-			//new PageConfig(null, "ContentPage", () => new ContentPageXaml { BindingContext = new ViewModels.TransformImageViewModel() }),
+			//new PageConfig(null, "ContentPage", () => new ContentPageXaml { BindingContext = new ContentPageXaml() }),
 			//new PageConfig(null, "Layouts", null),
-			new PageConfig(null, "Keyboard", null),
+			new PageConfig(null, "new Keyboard", null),
+            new PageConfig(null, "new Number", null),
+            new PageConfig(null, "Keyboard", null),
             new PageConfig(null, "Number", null),
 
             new PageConfig(null, "Show Data",  () => new ShowDataXaml { BindingContext = new ViewModels.MarksViewModel() }),
 			//new PageConfig(null, "Cells", null),
-			//new PageConfig(null, "Tests", null),
+			new PageConfig(null, "Tests", null),
 
 			// Layouts
 			new PageConfig("Layouts", "AbsoluteLayout", () => new AbsoluteLayoutXaml { BindingContext = new ViewModels.MarksViewModel() }),
@@ -71,6 +73,21 @@ namespace GestureSample.Views
             //new PageConfig("Views", "Piano Sync decomposition one by one 2 layers", () => new ButtonXaml { BindingContext = new ViewModels.ButtonViewModel(true) }),
             new PageConfig("Number", "Multiplication", () => new ButtonXaml { BindingContext = new ViewModels.ButtonViewModel(false,true,true, true) }),
 
+            new PageConfig("new Keyboard", "Async one number", () => new SimpleViewCellsPage(GameType.GuessOne,false,true,false,true)) ,
+            new PageConfig("new Keyboard", "Sync one number", () => new SimpleViewCellsPage(GameType.GuessOne,false,true, true,true)),
+            new PageConfig("new Keyboard", "Sync one number Blind", () => new SimpleViewCellsPage(GameType.GuessOne,false,true, true)),
+            new PageConfig("new Keyboard", "Async decomposition not required new combinations", () => new SimpleViewCellsPage(GameType.SimpleDecompositionGame,false,true,false,true)),
+            new PageConfig("new Keyboard", "Sync decomposition not required new combinations", () => new SimpleViewCellsPage(GameType.SimpleDecompositionGame,false,true,true,true)),
+            new PageConfig("new Keyboard", "Sync decomposition not required new combinations Blind", () => new SimpleViewCellsPage(GameType.SimpleDecompositionGame,false,true,true)),
+            new PageConfig("new Keyboard", "Async decomposition required new combinations", () => new SimpleViewCellsPage(GameType.SimpleDecompositionGame,true,true,false,true)),
+            new PageConfig("new Keyboard", "Sync decomposition required new combinations", () => new SimpleViewCellsPage(GameType.SimpleDecompositionGame,true,true,true,true)),
+            new PageConfig("new Keyboard", "Sync decomposition required new combinations Blind", () => new SimpleViewCellsPage(GameType.SimpleDecompositionGame,true,true,true)),
+            new PageConfig("new Number", "decomposition not required new combinations", () => new SimpleViewCellsPage(GameType.SimpleDecompositionGame)),
+            new PageConfig("new Number", "decomposition", () => new SimpleViewCellsPage(GameType.SimpleDecompositionGame,true)),
+            new PageConfig("new Number", "decomposition game", () => new SimpleViewCellsPage(GameType.DecompositionGame)),
+            //new PageConfig("Views", "Piano Sync decomposition one by one", () => new ButtonXaml { BindingContext = new ViewModels.ButtonViewModel(true) })),
+            //new PageConfig("Views", "Piano Sync decomposition one by one 2 layers", () => new SimpleViewCellsPage(true,false,true,false)),
+            new PageConfig("new Number", "Multiplication", () => new SimpleViewCellsPage(GameType.Multiplication)),
 
 			// Cells
 			new PageConfig("Cells", "TextCell", () => new TextCellMain { BindingContext = new ViewModels.ListOfStringsViewModel() }),
@@ -81,7 +98,7 @@ namespace GestureSample.Views
 			new PageConfig("Tests", "Clear in Handler", () => new DisposeInHandlerPage()),
 			new PageConfig("Tests", "Horizontal ScrollView", () => new HorizontalScrollViewXaml { BindingContext = new ViewModels.CustomEventArgsViewModel() }),
 			new PageConfig("Tests", "BigButton", () => new BigButtonPage()),
-			new PageConfig("Tests", "ViewCells", () => new SimpleViewCellsPage()),
+			new PageConfig("Tests", "ViewCells", () => new SimpleViewCellsPage(GameType.SimpleDecompositionGame)),
 			new PageConfig("Tests", "Custom ListView", () => new CustomListViewPage { BindingContext = new ViewModels.ListOfStringsViewModel() }),
 			new PageConfig("Tests", "ScrollView with Images", () => new ScrollViewWithImages { BindingContext = new ViewModels.CustomEventArgsViewModel() }),
 			new PageConfig("Tests", "InputTransparent", () => new InputTransparent { BindingContext = new ViewModels.TextOnlyViewModel() }),
@@ -96,7 +113,7 @@ namespace GestureSample.Views
 			new PageConfig("Tests", "Test first panning args", () => new PrintFirstPanning { BindingContext = new ViewModels.CustomEventArgsViewModel() }),
 			new PageConfig("Tests", "Invisible Button", () => new InvisibleButtonPage()),
 			new PageConfig("Tests", "Draggable Items on TabbedPage", () => new DraggableItemsOnTabbedPage { BindingContext = new ViewModels.Tests.DraggableItemsViewModel() }),
-			new PageConfig("Tests", "Drag&Drop Items in FlexLayout", () => new DragAndDropPage { BindingContext = new ViewModels.Tests.DragAndDropViewModel() }),
+			new PageConfig("Tests", "Drag&Drop Items in FlexLayout", () => new DragAndDropPage { BindingContext = new ViewModels.Tests.DragAndDropViewModel() })
 		};
 
 

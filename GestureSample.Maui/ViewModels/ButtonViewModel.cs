@@ -639,7 +639,7 @@ namespace GestureSample.ViewModels
                     timer.Start();
                     _isTimerWorking = true;
                 }
-                }
+             }
             else
             {
                 if (((VisualElement)e.Sender).BackgroundColor != Colors.Yellow)
